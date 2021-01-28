@@ -1,0 +1,23 @@
+<% if @thread.errors.any? %>
+    <div class='alert alert-danger alert-dismissible'> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <% @thread.errors.full_messages.each do |error| %>
+        <span><%= error %></span></br>
+        <% end %>
+    </div>
+<% end %>
+<%= form_for @thread do |q| %>
+    <div class='form_group'>
+        <%= q.label :title %>
+         <%= q.text_field :title, class: 'form-control' %>
+    </div>
+
+     <div class='form_group'>
+        <%= q.label :content %>
+        <%= q.text_area :content, rows: 10, class: 'form-control' %>
+    </div>
+
+    <div class='form_group'>
+        <%= q.submit 'save', class: 'btn btn-primary form-control' %>
+    <div>
+<% end %>

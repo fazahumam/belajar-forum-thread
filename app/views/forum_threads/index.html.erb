@@ -1,0 +1,40 @@
+<div class='row'>
+    <div class='col-md-6 col-md-offset-3'>
+        <% if user_signed_in? %>
+            <%= link_to 'Add New', new_forum_thread_path, class: 'btn btn-primary' %>
+        <% end %>
+        <%= @thread.each do |q| %>
+            <div class='post'>
+            <h4><%= link_to q.title.titleize, forum_thread_path(q) %> 
+                <% if q.sticky_order != 100 %>
+                    <span class="glyphicon glyphicon-pushpin"></span>
+                <% end %>    
+            </h4>
+            </div>
+
+            <div class='meta'>
+            <%= q.created_at.strftime("%d %M %Y") %> by <%= q.user.name %>
+            </div>
+
+
+            <div class='content'>
+            <%= truncate q.content, lenght: 100 %>
+            </div>
+            
+
+            <div class='action'>
+                <%= link_to 'Pin it', pinit_forum_thread_path(q), class: 'btn btn-primary', method: :put %>
+            </div>
+            
+            
+            <div class='count'>
+            <%= q.forum_posts_count %> chats
+            </div>
+
+            <div style='clear: both'></div>
+
+        <% end %>
+
+        <%= will_paginate @thread, renderer: BootstrapPagination::Rails %>
+    </div>
+</div>
